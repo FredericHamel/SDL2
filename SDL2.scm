@@ -11,13 +11,11 @@
 
 (c-declare #<<end-of-c-declare
 #include <SDL.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "gambit.h"
 end-of-c-declare
 )
 
-;; SDL2 Subsystems
+;; SDL2 SubSystems
 (c-define-cst unsigned-int SDL_INIT_TIMER)
 (c-define-cst unsigned-int SDL_INIT_AUDIO)
 (c-define-cst unsigned-int SDL_INIT_VIDEO)
@@ -157,6 +155,9 @@ end-of-c-declare
 (define SDL_InitSubSystem
   (c-lambda (unsigned-int) int "SDL_InitSubSystem"))
 
+(define SDL_QuitSubSystem
+  (c-lambda (unsigned-int) void "SDL_QuitSubSystem"))
+
 (define SDL_Quit
   (c-lambda () void "SDL_Quit"))
 
@@ -227,10 +228,17 @@ end-of-c-lambda
 (define SDL_CreateTextureFromSurface
   (c-lambda (SDL_Renderer* SDL_Surface*) SDL_Texture* "SDL_CreateTextureFromSurface"))
 
-
-
 (define SDL_DestroyTexture
   (c-lambda (SDL_Texture*) void "SDL_DestroyTexture"))
+
+(define SDL_ToggleCursor
+  (c-lambda () bool "___return(SDL_ShowCursor(!SDL_ShowCursor(SDL_QUERY)));"))
+
+(define SDL_ShowCursor
+  (c-lambda () void "SDL_ShowCursor(SDL_ENABLE);"))
+
+(define SDL_HideCursor
+  (c-lambda () void "SDL_ShowCursor(SDL_DISABLE);"))
 
 ;; SDL2 abstraction
 (define (with-SDL2 init-options thunk #!optional exn-handler)

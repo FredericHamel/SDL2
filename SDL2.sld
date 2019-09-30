@@ -2,6 +2,7 @@
 (define-library (SDL2)
   (export SDL_Init
           SDL_InitSubSystem
+          SDL_QuitSubSystem
           SDL_Quit
 
           ;; SDL subsystems
@@ -157,6 +158,11 @@
           ;; Surface and Texture
           SDL_CreateTextureFromSurface
           SDL_DestroyTexture
+
+          ;; Cursor
+          SDL_ShowCursor
+          SDL_HideCursor
+          SDL_ToggleCursor
 
           with-SDL2
           with-SDL2-context
